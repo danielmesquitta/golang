@@ -16,6 +16,59 @@
 
 package pointers
 
-func Pointers() {
+import "fmt"
 
+const (
+	Active   = true
+	Inactive = false
+)
+
+type Item struct {
+	Name        string
+	SecurityTag bool
+}
+
+func activateTag(item *Item) {
+	item.SecurityTag = Active
+}
+
+func deactivateTag(item *Item) {
+	item.SecurityTag = Inactive
+}
+
+func checkout(items *[4]Item) {
+	for index := range *items {
+		itemPtr := &(*items)[index]
+		deactivateTag(itemPtr)
+	}
+}
+
+func printItems(items *[4]Item) {
+	fmt.Println("Items:")
+
+	for _, item := range *items {
+		fmt.Println(item.Name, ":", item.SecurityTag)
+	}
+
+	fmt.Println()
+}
+
+func Pointers() {
+	var items [4]Item
+
+	for index := range items {
+		itemPtr := &items[index]
+		itemPtr.Name = "Item " + fmt.Sprint(index+1)
+		activateTag(itemPtr)
+	}
+
+	printItems(&items)
+
+	deactivateTag(&items[1])
+
+	printItems(&items)
+
+	checkout(&items)
+
+	printItems(&items)
 }

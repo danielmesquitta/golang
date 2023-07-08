@@ -1,11 +1,9 @@
 package main
 
 import (
-	maps "golang/09_maps"
+	funcLiterals "golang/19_func_literal"
 )
 
 func main() {
-	// variables.Variables()
-	// functions.Functions()
-	maps.Maps()
+	funcLiterals.FuncLiterals()
 }

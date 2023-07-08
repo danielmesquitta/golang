@@ -12,7 +12,7 @@
 //--Notes:
 //* Your program output should list 3 parts, then 5 parts, then 2 parts
 
-package slices
+package slicesPkg
 
 import "fmt"
 

@@ -10,25 +10,35 @@ package if_else
 
 import "fmt"
 
-// Days of the week
+type DayOfWeek byte
+
 const (
-	Sunday    = 0
-	Monday    = 1
-	Tuesday   = 2
-	Wednesday = 3
-	Thursday  = 4
-	Friday    = 5
-	Saturday  = 6
+	Sunday DayOfWeek = iota
+	Monday
+	Tuesday
+	Wednesday
+	Thursday
+	Friday
+	Saturday
 )
 
-// User roles
+func (d DayOfWeek) String() string {
+	return []string{"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"}[d]
+}
+
+type Role byte
+
 const (
-	Admin      = 10
-	Manager    = 20
-	Contractor = 30
-	Member     = 40
-	Guest      = 50
+	Admin Role = iota
+	Manager
+	Contractor
+	Member
+	Guest
 )
+
+func (d Role) String() string {
+	return []string{"Admin", "Manager", "Contractor", "Member", "Guest"}[d]
+}
 
 func accessGranted() {
 	fmt.Println("Granted")
@@ -41,6 +51,8 @@ func accessDenied() {
 func IfElse() {
 	// The day and role. Change these to check your work.
 	today, role := Tuesday, Guest
+
+	fmt.Println(today, role)
 
 	//* Access at any time: Admin, Manager
 	if role == Admin || role == Manager {

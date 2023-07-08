@@ -14,12 +14,53 @@
 
 package iota
 
+import "fmt"
+
+type Operation byte
+
+const (
+	Add Operation = iota
+	Subtract
+	Multiply
+	Divide
+)
+
+func (operation Operation) calculate(numbers ...int) int {
+	result := numbers[0]
+
+	switch operation {
+	case Add:
+		for _, number := range numbers[1:] {
+			result += number
+		}
+
+	case Subtract:
+		for _, number := range numbers[1:] {
+			result -= number
+		}
+
+	case Multiply:
+		for _, number := range numbers[1:] {
+			result *= number
+		}
+
+	case Divide:
+		for _, number := range numbers[1:] {
+			result /= number
+		}
+	}
+
+	return result
+}
+
 func Iota() {
-	// fmt.Println(add.calculate(2, 2)) // = 4
+	add, sub, mul, div := Add, Subtract, Multiply, Divide
 
-	// fmt.Println(sub.calculate(10, 3)) // = 7
+	fmt.Println(add.calculate(2, 2)) // = 4
 
-	// fmt.Println(mul.calculate(3, 3)) // = 9
+	fmt.Println(sub.calculate(10, 3)) // = 7
 
-	// fmt.Println(div.calculate(100, 2)) // = 50
+	fmt.Println(mul.calculate(3, 3)) // = 9
+
+	fmt.Println(div.calculate(100, 2)) // = 50
 }

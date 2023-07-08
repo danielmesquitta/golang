@@ -17,7 +17,9 @@
 
 package structs
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type Rectangle struct {
 	Length uint

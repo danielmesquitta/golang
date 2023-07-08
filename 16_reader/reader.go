@@ -18,6 +18,47 @@
 
 package readers
 
-func Readers() {
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
+)
 
+func Readers() {
+	r := bufio.NewReader(os.Stdin)
+
+	commandsCount := map[string]int{}
+	linesCount := 0
+
+	for {
+		line, err := r.ReadString('\n')
+		line = strings.Trim(line, "\n")
+
+		if err != nil {
+			panic(err)
+		}
+
+		if line == "Q" || line == "q" {
+			break
+		}
+
+		switch line {
+		case "hello":
+			fmt.Println("Hello!")
+			commandsCount[line]++
+
+		case "bye":
+			fmt.Println("Bye!")
+			commandsCount[line]++
+		}
+
+		linesCount++
+	}
+
+	fmt.Println("Commands:")
+	fmt.Println(commandsCount)
+
+	fmt.Println("Lines:")
+	fmt.Println(linesCount)
 }
