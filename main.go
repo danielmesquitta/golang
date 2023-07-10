@@ -1,9 +1,9 @@
 package main
 
 import (
-	funcLiterals "golang/19_func_literal"
+	channels "golang/21_channels"
 )
 
 func main() {
-	funcLiterals.FuncLiterals()
+	channels.Channels()
 }

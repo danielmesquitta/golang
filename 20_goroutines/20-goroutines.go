@@ -25,15 +25,114 @@
 
 package goroutines
 
-// import (
-// 	"bufio"
-// 	"fmt"
-// 	"io"
-// 	"os"
-// 	"strconv"
-// 	"time"
-// )
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
+	"sync"
+	"time"
+)
 
-func Goroutines() {
-	// files := []string{"num1.txt", "num2.txt", "num3.txt", "num4.txt", "num5.txt"}
+func sumFileLines(fileName string) (int, error) {
+	sum := 0
+
+	readFile, err := os.Open("20_goroutines/" + fileName)
+
+	if err != nil {
+		return 0, err
+	}
+
+	defer readFile.Close()
+
+	fileScanner := bufio.NewScanner(readFile)
+
+	fileScanner.Split(bufio.ScanLines)
+
+	var fileLines []string
+
+	for fileScanner.Scan() {
+		fileLines = append(fileLines, fileScanner.Text())
+	}
+
+	for _, line := range fileLines {
+		number, err := strconv.Atoi(line)
+
+		if err != nil {
+			fmt.Println("Error:", err)
+
+			continue
+		}
+
+		sum += number
+	}
+
+	return sum, nil
+}
+
+func Channels() {
+	start := time.Now()
+
+	files := []string{"num1.txt", "num2.txt", "num3.txt", "num4.txt", "num5.txt"}
+
+	sumsChannel := make(chan int)
+
+	for _, file := range files {
+		fileName := file
+
+		go func() {
+			sum, err := sumFileLines(fileName)
+
+			if err != nil {
+				fmt.Println("Error:", err)
+			}
+
+			sumsChannel <- sum
+		}()
+	}
+
+	grandTotal := 0
+
+	for range files {
+		grandTotal += <-sumsChannel
+	}
+
+	fmt.Println("Grand Total:", grandTotal)
+
+	elapsed := time.Since(start)
+	fmt.Println("Time Elapsed:", elapsed)
+}
+
+func WaitGroups() {
+	start := time.Now()
+
+	files := []string{"num1.txt", "num2.txt", "num3.txt", "num4.txt", "num5.txt"}
+	grandTotal := 0
+
+	wg := sync.WaitGroup{}
+
+	for _, file := range files {
+		wg.Add(1)
+
+		fileName := file
+
+		go func() {
+			sum, err := sumFileLines(fileName)
+
+			if err != nil {
+				fmt.Println("Error:", err)
+			}
+
+			grandTotal += sum
+
+			wg.Done()
+		}()
+	}
+
+	wg.Wait()
+
+	fmt.Println("Grand Total:", grandTotal)
+
+	elapsed := time.Since(start)
+	fmt.Println("Time Elapsed:", elapsed)
 }
