@@ -1,8 +1,6 @@
 package main
 
-import (
-	channels "golang/21_channels"
-)
+import channels "github.com/danielmesquitta/golang/21_channels"
 
 func main() {
 	channels.Channels()

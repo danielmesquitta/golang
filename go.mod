@@ -1,4 +1,4 @@
-module golang
+module github.com/danielmesquitta/golang
 
 go 1.20
 

@@ -14,8 +14,9 @@
 package tests
 
 import (
-	rcvFunc "golang/11_rcv_func"
 	"testing"
+
+	rcvFunc "github.com/danielmesquitta/golang/11_rcv_func"
 )
 
 func TestHeal(t *testing.T) {
